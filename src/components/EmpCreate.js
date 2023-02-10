@@ -1,22 +1,28 @@
 import React from "react";
 import { useForm } from 'react-hook-form';
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
+import { createEmployee } from "../app/userSlice";
 const EmpCreate = () => {
   const navigate = useNavigate()
   const {register, handleSubmit, formState: {errors}} = useForm()
-
+  const dispatch = useDispatch();
+  
   const onSubmit = (data) => {
-    fetch('http://localhost:3001/profile', {
-      method: 'POST', 
-      headers: {"content-type": "application/json"},
-      body: JSON.stringify(data)
-    }).then((res) => {
+      dispatch(createEmployee(data))
       alert('Thêm thành công!')
       navigate('/')
-    }).catch((err) => {
-      console.log(err.message);
-    })
+
+    // fetch('http://localhost:3001/profile', {
+    //   method: 'POST', 
+    //   headers: {"content-type": "application/json"},
+    //   body: JSON.stringify(data)
+    // }).then((res) => {
+    //   alert('Thêm thành công!')
+    //   navigate('/')
+    // }).catch((err) => {
+    //   console.log(err.message);
+    // })
   } 
   
   return (

@@ -1,11 +1,14 @@
 import React, { useEffect } from "react";
 import { useForm } from 'react-hook-form';
+import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { editEmployee } from "../app/userSlice";
 
 const EmpEdit = () => {
   const navigate = useNavigate()
   const {register, handleSubmit, errors, reset} = useForm()
   const {id} = useParams();
+  const dispatch = useDispatch();
 
   useEffect(() => {
    fetch('http://localhost:3001/profile/' + id).then((res) => {
@@ -18,16 +21,9 @@ const EmpEdit = () => {
   }, [])
   
   const onSubmit = (data) => {
-    fetch('http://localhost:3001/profile/' + id, {
-      method: 'PUT', 
-      headers: {"content-type": "application/json"},
-      body: JSON.stringify(data)
-    }).then((res) => {
+      dispatch(editEmployee(data))
       alert('Sửa thành công!')
       navigate('/')
-    }).catch((err) => {
-      console.log(err.message);
-    })
   } 
   
   return (

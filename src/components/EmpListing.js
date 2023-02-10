@@ -1,29 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { getEmployee, removeEmployee } from "../app/userSlice";
 
 export const EmpListing = () => {
-    const [ListData, setListData] = useState(null)
-    
+    const users = useSelector(store => store.users.users)
+    const dispatch = useDispatch()
+        
     useEffect(() => {
-      fetch('http://localhost:3001/profile').then((res) => {
-          return res.json()
-      }).then((data) => {
-          setListData(data)
-      }).catch((err) => {
-         console.log(err);
-      }) 
+      dispatch(getEmployee())
     }, [])
 
     const handleDelete = (id) => {
         if(window.confirm('Do yo want to remove?')) {
-            fetch('http://localhost:3001/profile/'+id, {
-            method: 'DELETE', 
-            }).then((res) => {
-                alert('Xóa thành công!')
-                window.location.reload()
-            }).catch((err) => {
-            console.log(err.message);
-            })
+          dispatch(removeEmployee(id))
+            alert('Xóa thành công!')
+            window.location.reload()
         }
     }
     
@@ -46,10 +38,10 @@ export const EmpListing = () => {
         </thead>
         <tbody>
           {
-              ListData && 
-              ListData.map((item) => (
-                <tr key={item.id}>
-                    <td>{item.id}</td>
+              users && users.length > 0 &&
+              users?.map((item, index) => (
+                <tr key={index}>
+                    <td>{index++}</td>
                     <td>{item.name}</td>
                     <td>{item.age}</td>
                     <td>{item.school}</td>

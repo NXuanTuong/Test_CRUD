@@ -1,11 +1,18 @@
 {
   "profile": [
     {
-      "name": "Nguyễn Xuân Tường",
+      "id": 1,
+      "name": "Nguyễn Xuân Tường ",
       "age": "12",
       "school": "Đại Học Công Nghiệp",
+      "programmingLanguage": "HTML, CSS, JS, ReactJS"
+    },
+    {
+      "name": "Product G",
+      "age": "32",
+      "school": "Đại Học Công Nghiệp",
       "programmingLanguage": "HTML, CSS, JS, ReactJS",
-      "id": 1
+      "id": 2
     }
   ]
 }
